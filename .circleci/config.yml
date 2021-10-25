@@ -8,6 +8,14 @@ orbs:
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+jobs:
+    test:
+        docker:
+            - image: cimg/node:16.8.0
+        steps:
+            - checkout
+            - run: npm install
+            - run: npm run test
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
@@ -19,3 +27,6 @@ workflows:
           version: '16.10'
           # If you are using yarn, change the line below from "npm" to "yarn"
           pkg-manager: npm
+    app-tests:
+        jobs:
+            - test
